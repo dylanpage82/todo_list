@@ -1,4 +1,4 @@
-const ToDo = require('../models/toDo')
+const ToDo = require('../../models/toDo')
 
 const dataController = {
     index(req, res, next) {
@@ -14,19 +14,19 @@ const dataController = {
         })
     },
     destroy(req, res, next) {
-        ToDo.findByIdAndDelete(req.params.id, (err, deleteTodo) => {
+        ToDo.findByIdAndDelete(req.params.id, (err, deletedTodo) => {
             if (err) {
                 res.status(400).send({
                     msg: err.message
                 })
             }else{
-                res.locals.data.ToDo = deleteTodo
+                res.locals.data.ToDo = deletedTodo
                 next()
             }
         })
     },
     update (req, res, next) {
-        req.body.completed = req.body.completed === 'on'
+    
         ToDo.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedToDo) => {
           if (err) {
             res.status(400).send({
@@ -40,12 +40,12 @@ const dataController = {
       },
       // Create
       create (req, res, next) {
-        req.body.completed = req.body.completed === 'on'
+        req.body.completed = req.body.completed === 'on' || req.body.completed === true ? true : false
         
         ToDo.create(req.body, (err, createdToDo) => {
-          
+      
           if (err) {
-            res.status(404).send({
+            res.status(400).send({
               msg: err.message
             })
           } else {
@@ -67,4 +67,13 @@ const dataController = {
         })
       }
 }
-module.exports = dataController
+
+const apiController = {
+    index(req, res, next){
+        res.json(res.locals.data.toDos)
+    },
+    show(req, res, next){
+        res.json(res.locals.data.toDo)
+    }
+}
+module.exports = {dataController, apiController}

@@ -1,8 +1,12 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import ToDosPage from './pages/ToDosPage/ToDosPage'
+import {Routes, Route} from 'react-router-dom'
 
-function App() {
+
+export default function App() {
   const [state, setState] = useState(null)
+  const [user, setUser] = useState(true)
   const fetchState = async () => {
     try {
       const response = await fetch('/api/test')
@@ -17,11 +21,15 @@ function App() {
     fetchState()
   }, [])
   
+  
   return (
     <div className="App">
-      { state && state.eureka ? <>{state.eureka}</> : <>You are still looking don't give up.</> }
-    </div>
+      
+      <Routes>
+        <Route path = "/toDos" element={<ToDosPage />} />
+      </Routes>
+      </div>
   );
 }
 
-export default App;
+

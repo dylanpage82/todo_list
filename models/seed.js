@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const db = require('./db')
+const db = require('../config/database')
 const ToDo = require('./toDo')
 
 const starterToDos = [
@@ -22,13 +22,13 @@ const starterToDos = [
       ToDo.create(starterToDos)
         .then((createdToDos) =>{
             console.log('created toDos:', createdToDos)
-            db.close()
+            
         })  
         .catch(err =>{
             console.log(err)
-            db.close()
+            
         })
     }).catch(err => {
         console.log(err)
-        db.close()
+        
     })
