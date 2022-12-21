@@ -1,10 +1,9 @@
-import './App.css';
-import { useState, useEffect } from 'react';
+import './App.css'
+import { useState, useEffect } from 'react'
 import ToDosPage from './pages/ToDosPage/ToDosPage'
-import {Routes, Route} from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
-
-export default function App() {
+export default function App () {
   const [state, setState] = useState(null)
   const [user, setUser] = useState(true)
   const fetchState = async () => {
@@ -20,16 +19,13 @@ export default function App() {
   useEffect(() => {
     fetchState()
   }, [])
-  
-  
+
   return (
-    <div className="App">
-      
+    <div className='App'>
+
       <Routes>
-        <Route path = "/toDos" element={<ToDosPage />} />
+        <Route path='/toDos' element={<ToDosPage />} />
       </Routes>
-      </div>
-  );
+    </div>
+  )
 }
-
-
